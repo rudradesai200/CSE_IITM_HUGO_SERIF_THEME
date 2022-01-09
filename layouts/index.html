@@ -1,17 +1,21 @@
 {{ define "body_classes" }}page-home{{ end }}
 
 {{ define "main" }}
-<div class="intro">
-  <div class="container">
+<div class="intro" style="padding-top: 2%; padding-bottom: 10%;">
+  <div class="container" style="max-width: 90%; margin-top: 3%;">
     <div class="row justify-content-start">
-      <div class="col-12 col-md-3 col-lg-6 order-2 order-md-1">
+      <div class="col-12 col-md-3 col-lg-6">
         {{ .Content }}
         {{ if .Site.Params.homepage.show_contact_box }}
           {{ partial "call.html" (dict "site" .Site "context" . "show_button" "true") }}
         {{ end }}
+      
+        <div class="col-12 col-md-3 col-lg-6">
+          <a class="button button-primary" href="#all-services">View All Courses</a>
+        </div>
       </div>
       {{ if .Params.intro_image }}
-      <div class="col-12 col-md-9 col-lg-6 order-1 order-md-2 position-relative">
+      <div class="col-12 col-md-9 col-lg-6 position-relative">
         <img alt={{ .Title }} class="intro-image{{ if .Params.intro_image_absolute }} intro-image-absolute{{ end }}{{ if .Params.intro_image_hide_on_mobile }} intro-image-hide-mobile{{ end }}" src="{{ .Params.intro_image | relURL }}" style="height: inherit;"/>
       </div>
       {{ end }}
@@ -21,8 +25,8 @@
 
 {{ $services := where (where .Site.RegularPages "Type" "services") ".Params.featured" true }}
 {{if gt (len $services) 0}}
-<div class="strip">
-  <div class="container pt-6 pb-6 pb-md-10">
+<div class="strip" id="all-services">
+  <div class="container pt-6 pb-6 pb-md-10" style="max-width: 90%;">
     <div class="row justify-content-start">
       {{ $services := where (where .Site.RegularPages "Type" "services") ".Params.featured" true }}
       {{ range (sort $services ".Params.weight") }}
